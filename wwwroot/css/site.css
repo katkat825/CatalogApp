@@ -1,0 +1,107 @@
+:root {
+  --bgColor: #f7ead0;
+  --txtColor: black;
+}
+
+html {
+  font-size: 14px; 
+}
+
+.dark-mode {
+  --bgColor: #121212;
+  --txtColor: #f4e3c0;
+}
+
+body {
+  background: var(--bgColor);
+  color: var(--txtColor);
+}
+
+.table {
+  color: var(--txtColor);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 34px;
+  background: #121212;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 22px;
+  border-radius: 50%;
+  left: 3px;
+  bottom: 3px;
+  background: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+#ChangeTheme:checked + .slider {
+  background-color: #2196F3;
+}
+
+#ChangeTheme:focus + .slider {
+  box-shadow: 0 0 1px black;
+}
+
+#ChangeTheme:checked + .slider:before {
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(22px);
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #fdfbf7;
+  color: black;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+    margin-top: 70px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem black;
+}
+
+.btn-theme {
+  color: var(--txtColor);
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}

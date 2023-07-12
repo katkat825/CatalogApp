@@ -1,0 +1,111 @@
+@model PaginatedList<CatalogApp.Models.Book>
+
+
+@{
+    ViewData["Title"] = "Catalog";
+}
+
+<h1>My Library Catalog</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Books" asp-action="Index" method="get">
+    <p>
+        <input type="text" name="SearchString" value="@ViewData["Filter"]" placeholder="Search Title, Author, Series..."/>
+        <a asp-action="Index">Back to Full List</a>
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortBy="@ViewData["TitleSort"]" asp-route-filter="@ViewData["filter"]">Title</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortBy="@ViewData["AuthorSort"]" asp-route-filter="@ViewData["filter"]">Author</a>
+            </th>
+            <th>
+                Genre
+            </th>
+            <th>
+                Age Restriction
+            </th>
+            <th>
+                Age Group
+            </th>
+            <th>
+                Series
+            </th>
+            <th>
+                Publisher
+            </th>
+            <th>
+                ISBN
+            </th>
+            <th>
+                Location
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Restrict)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AgeGroup)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Series)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Publisher)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Isbn)
+                </td>
+                <td>
+                    @{
+                        if (item.BookArray != null)
+                        {
+                            <a asp-action="Download" asp-route-id="@item.Id">Download</a>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.Location)
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var noPreviousPage = !Model.HasPrevious ? "disabled" : "";
+    var noNextPage = !Model.HasNext ? "disabled" : "";
+}
+
+<a asp-action="Index" asp-route-sortBy="@ViewData["SortedBy"]" asp-route-filter="@ViewData["Filter"]" asp-route-page="@(Model.PageIndex - 1)" class="btn btn-theme @noPreviousPage"> < Prev</a>
+<a asp-action="Index" asp-route-sortBy="@ViewData["SortedBy"]" asp-route-filter="@ViewData["Filter"]" asp-route-page="@(Model.PageIndex + 1)" class="btn btn-theme @noNextPage">Next ></a>
